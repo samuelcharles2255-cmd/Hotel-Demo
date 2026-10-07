@@ -1,0 +1,16 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Verify your email
+From: webmaster@localhost
+To: neema.okello@aether.dev
+Date: Wed, 07 Oct 2026 09:19:59 -0000
+Message-ID: <179136479952.35456.13021000185720043944@Lenovo_Ryzen3>
+
+Hi Neema,
+
+Confirm your email to finish setting up your account:
+http://localhost:3010/verify-email?token=eyJ1aWQiOjMsImVtYWlsIjoibmVlbWEub2tlbGxvQGFldGhlci5kZXYifQ:1xENod:xKr9D80x1t9vlU2CI7__uquM9qg_LPGi50OpW2xw78g
+
+This link expires in 48 hours. If you didn't sign up, ignore this email.
+-------------------------------------------------------------------------------

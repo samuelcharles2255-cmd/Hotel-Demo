@@ -1,0 +1,16 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Verify your email
+From: webmaster@localhost
+To: mirror@test.com
+Date: Wed, 07 Oct 2026 09:58:43 -0000
+Message-ID: <179136712328.15632.900796944241231561@Lenovo_Ryzen3>
+
+Hi Mirror,
+
+Confirm your email to finish setting up your account:
+http://localhost:3010/verify-email?token=eyJ1aWQiOjQsImVtYWlsIjoibWlycm9yQHRlc3QuY29tIn0:1xEOQ7:38t7R8uupRqQ9wdHgt48l60yIBo5GgP4_pdH0OYtPpM
+
+This link expires in 48 hours. If you didn't sign up, ignore this email.
+-------------------------------------------------------------------------------

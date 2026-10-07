@@ -1,0 +1,14 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Someone tried to register with your email
+From: webmaster@localhost
+To: ida.moshi@aether.dev
+Date: Wed, 07 Oct 2026 09:47:02 -0000
+Message-ID: <179136642237.15632.2187213108105939564@Lenovo_Ryzen3>
+
+An account already exists for this address. If it was you, log in or reset your password:
+http://localhost:3010/forgot-password
+
+If it wasn't you, no action is needed.
+-------------------------------------------------------------------------------

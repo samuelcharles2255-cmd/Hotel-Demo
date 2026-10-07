@@ -1,0 +1,14 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Reset your password
+From: webmaster@localhost
+To: neema.okello@aether.dev
+Date: Wed, 07 Oct 2026 09:20:42 -0000
+Message-ID: <179136484225.35456.9974742972510216728@Lenovo_Ryzen3>
+
+Use this link to choose a new password:
+http://localhost:3010/reset-password?uid=Mw&token=dg2vmi-7f215692a8002140dd5263d42d45274d
+
+It expires in 1 hour. If you didn't ask for this, ignore this email - your password is unchanged.
+-------------------------------------------------------------------------------
