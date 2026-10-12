@@ -1,0 +1,762 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400;1,500&display=swap");
+@import "tailwindcss";
+
+/* ============================================================
+   AETHER — Design tokens
+   deep charcoal / warm off-white / oxidized copper
+   ============================================================ */
+@theme {
+  /* copper is fixed — the same physical object in every light */
+  --color-copper: #c07a3a;
+  --color-copper-light: #d9a066;
+  --color-copper-deep: #9c5f2b;
+
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-fluid: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.44, 1);
+}
+
+/* Light theme — same physical palette, brighter and airier.
+   These remaps run through @theme inline, so every utility that uses
+   bg-charcoal / text-ivory etc. follows the [data-theme] toggle.
+   The semantic colors are defined :root → [data-theme="light"] below. */
+@theme inline {
+  --color-charcoal: var(--app-bg);
+  --color-charcoal-deep: var(--app-bg-deep);
+  --color-ivory: var(--app-ink);
+  --color-ivory-dim: var(--app-ink-dim);
+}
+
+@layer base {
+  :root {
+    --font-cormorant: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --font-jost: "Jost", ui-sans-serif, system-ui, sans-serif;
+
+    /* ---- semantic tokens (dark default; flipped by [data-theme="light"]) ---- */
+    --app-bg: #121212;
+    --app-bg-deep: #0a0a0a;
+    --app-ink: #f8f5f0;
+    --app-ink-dim: #e6e0d7;
+
+    --hairline: rgba(248, 245, 240, 0.1);
+    --panel: rgba(248, 245, 240, 0.04);
+    --panel-border: rgba(248, 245, 240, 0.1);
+    --panel-hover: rgba(248, 245, 240, 0.08);
+    --border-soft: rgba(248, 245, 240, 0.15);
+    --backdrop-veil: rgba(10, 10, 10, 0.6);
+    --dim-90: rgba(248, 245, 240, 0.9);
+    --dim-85: rgba(248, 245, 240, 0.85);
+    --dim-80: rgba(248, 245, 240, 0.8);
+    --dim-70: rgba(248, 245, 240, 0.7);
+    --dim-55: rgba(248, 245, 240, 0.55);
+    --dim-50: rgba(248, 245, 240, 0.5);
+    --dim-45: rgba(248, 245, 240, 0.45);
+    --dim-40: rgba(248, 245, 240, 0.4);
+    --dim-35: rgba(248, 245, 240, 0.35);
+    --dim-30: rgba(248, 245, 240, 0.3);
+    --dim-20: rgba(248, 245, 240, 0.2);
+
+    --menu-bg: #171717;
+    --scrollbar-track: #0a0a0a;
+    --scrollbar-thumb: rgba(248, 245, 240, 0.14);
+    --title-glow: rgba(248, 245, 240, 0.16);
+    --grain-opacity: 0.045;
+    --copper-btn-ink: #17110a;
+
+    --band-bg: linear-gradient(
+      157deg,
+      rgba(255, 255, 255, 0.72) 0%,
+      rgba(255, 255, 255, 0.4) 45%,
+      rgba(255, 255, 255, 0.66) 100%
+    );
+    --band-chroma: 0.9;
+    --band-caustic-blend: normal;
+
+    --deep-bg: linear-gradient(
+      157deg,
+      rgba(18, 18, 18, 0.78) 0%,
+      rgba(10, 10, 10, 0.62) 48%,
+      rgba(18, 18, 18, 0.82) 100%
+    );
+    --deep-border: rgba(248, 245, 240, 0.1);
+    --deep-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.16),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.04),
+      0 1px 1px 0 rgba(0, 0, 0, 0.5),
+      0 32px 70px -30px rgba(0, 0, 0, 0.85),
+      0 90px 140px -80px rgba(0, 0, 0, 1);
+
+    --caustic-a: rgba(255, 255, 255, 0.2);
+    --caustic-b: rgba(192, 122, 58, 0.16);
+    --caustic-c: rgba(255, 255, 255, 0.07);
+    --caustic-blend: screen;
+  }
+
+  [data-theme="light"] {
+    /* ivory daylight — the same warm temperature, lifted */
+    --app-bg: #efeae1;
+    --app-bg-deep: #ded6c8;
+    --app-ink: #17130e;
+    --app-ink-dim: #2b241b;
+
+    --hairline: rgba(23, 19, 14, 0.11);
+    --panel: rgba(255, 255, 255, 0.46);
+    --panel-border: rgba(23, 19, 14, 0.1);
+    --panel-hover: rgba(255, 255, 255, 0.7);
+    --border-soft: rgba(23, 19, 14, 0.16);
+    --backdrop-veil: rgba(255, 253, 248, 0.58);
+    --dim-90: rgba(23, 19, 14, 0.9);
+    --dim-85: rgba(23, 19, 14, 0.85);
+    --dim-80: rgba(23, 19, 14, 0.8);
+    --dim-70: rgba(23, 19, 14, 0.7);
+    --dim-55: rgba(23, 19, 14, 0.55);
+    --dim-50: rgba(23, 19, 14, 0.5);
+    --dim-45: rgba(23, 19, 14, 0.45);
+    --dim-40: rgba(23, 19, 14, 0.4);
+    --dim-35: rgba(23, 19, 14, 0.35);
+    --dim-30: rgba(23, 19, 14, 0.3);
+    --dim-20: rgba(23, 19, 14, 0.2);
+
+    --menu-bg: #fffdf8;
+    --scrollbar-track: rgba(23, 19, 14, 0.08);
+    --scrollbar-thumb: rgba(23, 19, 14, 0.26);
+    --title-glow: transparent;
+    --grain-opacity: 0.055;
+    --copper-btn-ink: #1d1406;
+
+    --band-bg: linear-gradient(
+      157deg,
+      rgba(255, 255, 255, 0.62) 0%,
+      rgba(255, 255, 255, 0.34) 45%,
+      rgba(255, 255, 255, 0.58) 100%
+    );
+    --band-chroma: 0.55;
+
+    --deep-bg: linear-gradient(
+      157deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.68) 48%,
+      rgba(255, 255, 255, 0.86) 100%
+    );
+    --deep-border: rgba(23, 19, 14, 0.08);
+    --deep-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
+      0 1px 1px 0 rgba(23, 19, 14, 0.06),
+      0 32px 70px -30px rgba(23, 19, 14, 0.25),
+      0 90px 140px -80px rgba(23, 19, 14, 0.42);
+
+    --caustic-a: rgba(255, 255, 255, 0.75);
+    --caustic-b: rgba(192, 122, 58, 0.16);
+    --caustic-c: rgba(255, 255, 255, 0.4);
+    --caustic-blend: normal;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 8rem;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--app-bg);
+    color: var(--app-ink);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    overflow-x: hidden;
+  }
+
+  /* film grain — photoreal texture over everything */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  ::selection {
+    background: rgba(192, 122, 58, 0.32);
+    color: #fff;
+  }
+
+  [data-theme="light"] ::selection {
+    color: #17130e;
+  }
+
+  :focus-visible {
+    outline: 1px solid rgba(192, 122, 58, 0.9);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-family: inherit;
+    color-scheme: dark;
+  }
+  [data-theme="light"] input,
+  [data-theme="light"] select,
+  [data-theme="light"] textarea,
+  [data-theme="light"] button {
+    color-scheme: light;
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(192, 122, 58, 0.55);
+  }
+}
+
+@layer components {
+  /* ==========================================================
+     LIQUID GLASS — frosted panel, refractive edge, caustics
+     ========================================================== */
+  .glass {
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(
+      157deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.035) 42%,
+      rgba(255, 255, 255, 0.07) 100%
+    );
+    -webkit-backdrop-filter: blur(28px) saturate(180%) brightness(1.06);
+    backdrop-filter: blur(28px) saturate(180%) brightness(1.06);
+    border: 1px solid rgba(248, 245, 240, 0.09);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.26),
+      inset 1px 0 0 0 rgba(255, 255, 255, 0.05),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.045),
+      inset 0 -30px 60px -50px rgba(192, 122, 58, 0.6),
+      0 1px 1px 0 rgba(0, 0, 0, 0.4),
+      0 24px 56px -26px rgba(0, 0, 0, 0.72),
+      0 64px 120px -64px rgba(0, 0, 0, 0.9);
+  }
+
+  /* chromatic aberration on the refractive edge */
+  .glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 176, 138, 0.55) 0%,
+      rgba(255, 255, 255, 0.22) 22%,
+      rgba(150, 214, 255, 0.3) 52%,
+      rgba(255, 255, 255, 0.05) 78%,
+      rgba(192, 122, 58, 0.35) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.75;
+    pointer-events: none;
+  }
+
+  /* liquid caustics / light reflections inside the material */
+  .glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      radial-gradient(70% 44% at 12% -8%, var(--caustic-a), transparent 62%),
+      radial-gradient(46% 34% at 88% 106%, var(--caustic-b), transparent 70%),
+      radial-gradient(30% 22% at 68% 18%, var(--caustic-c), transparent 75%);
+    mix-blend-mode: var(--caustic-blend);
+    animation: caustic-drift 14s ease-in-out infinite alternate;
+  }
+
+  /* darker glass — booking bars, dense panels */
+  .glass-deep {
+    background: linear-gradient(
+      157deg,
+      rgba(18, 18, 18, 0.78) 0%,
+      rgba(10, 10, 10, 0.62) 48%,
+      rgba(18, 18, 18, 0.82) 100%
+    );
+    -webkit-backdrop-filter: blur(34px) saturate(150%);
+    backdrop-filter: blur(34px) saturate(150%);
+    border-color: var(--deep-border);
+    box-shadow: var(--deep-shadow);
+  }
+
+  /* light surfaces — ivory bands */
+  .glass-light {
+    /* a solid ivory band in dark rooms; an airy white sheet in daylight */
+    background: var(--band-bg);
+    -webkit-backdrop-filter: blur(30px) saturate(140%);
+    backdrop-filter: blur(30px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
+      0 30px 60px -34px rgba(18, 18, 18, 0.35),
+      0 80px 120px -70px rgba(18, 18, 18, 0.4);
+  }
+  .glass-light::before {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(192, 122, 58, 0.35) 45%,
+      rgba(255, 255, 255, 0.6) 100%
+    );
+    opacity: var(--band-chroma);
+  }
+  .glass-light::after {
+    background:
+      radial-gradient(60% 40% at 16% 0%, rgba(255, 255, 255, 0.85), transparent 60%),
+      radial-gradient(40% 30% at 92% 100%, rgba(192, 122, 58, 0.14), transparent 70%);
+    mix-blend-mode: normal;
+    opacity: 0.6;
+  }
+
+  /* ==========================================================
+     DUAL THEME — daylight material for [data-theme="light"]
+     The token flips above recolor the app; these refine the glass
+     so it still reads as real material in bright air.
+     ========================================================== */
+  [data-theme="light"] .glass {
+    background: linear-gradient(
+      157deg,
+      rgba(255, 255, 255, 0.54) 0%,
+      rgba(255, 255, 255, 0.26) 42%,
+      rgba(255, 255, 255, 0.4) 100%
+    );
+    border-color: rgba(23, 19, 14, 0.1);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.55),
+      inset 0 -30px 60px -52px rgba(192, 122, 58, 0.36),
+      0 1px 1px 0 rgba(23, 19, 14, 0.07),
+      0 24px 56px -26px rgba(23, 19, 14, 0.2),
+      0 64px 120px -64px rgba(23, 19, 14, 0.28);
+  }
+  [data-theme="light"] .glass::before {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(192, 122, 58, 0.3) 24%,
+      rgba(255, 255, 255, 0.3) 52%,
+      rgba(23, 19, 14, 0.14) 78%,
+      rgba(192, 122, 58, 0.35) 100%
+    );
+    opacity: 0.5;
+  }
+  [data-theme="light"] .glass::after {
+    mix-blend-mode: normal;
+  }
+
+  [data-theme="light"] .glass-deep::before,
+  [data-theme="light"] .glass-deep::after {
+    content: none;
+  }
+
+  [data-theme="light"] .glass-light::after {
+    mix-blend-mode: normal;
+  }
+
+  [data-theme="light"] .btn-glass {
+    color: #17130e;
+    border-color: rgba(23, 19, 14, 0.12);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.85),
+      0 16px 40px -22px rgba(23, 19, 14, 0.45);
+  }
+  [data-theme="light"] .btn-glass:hover {
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.95),
+      0 0 0 1px rgba(192, 122, 58, 0.4),
+      0 22px 50px -22px rgba(23, 19, 14, 0.5),
+      0 30px 70px -30px rgba(23, 19, 14, 0.55);
+  }
+
+  [data-theme="light"] .btn-copper {
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.55),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.25),
+      0 10px 26px -12px rgba(56, 30, 8, 0.45),
+      0 30px 60px -34px rgba(23, 19, 14, 0.3);
+  }
+
+  [data-theme="light"] .field::-webkit-calendar-picker-indicator {
+    filter: opacity(0.5);
+  }
+  [data-theme="light"] .field::placeholder {
+    color: rgba(23, 19, 14, 0.35);
+  }
+
+  [data-theme="light"] .trail {
+    filter: drop-shadow(0 26px 34px rgba(23, 19, 14, 0.28))
+      drop-shadow(0 4px 10px rgba(192, 122, 58, 0.18));
+  }
+
+  /* ==========================================================
+     FLOATING / MOTION
+     ========================================================== */
+  .float {
+    animation: float 9s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  }
+  .float-slow {
+    animation: float 13s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+    animation-delay: -4s;
+  }
+
+  /* motion trail — soft blur behind floating elements */
+  .trail {
+    filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.55))
+      drop-shadow(0 4px 10px rgba(192, 122, 58, 0.12));
+  }
+
+  /* ==========================================================
+     BUTTONS — micro-interaction ready
+     ========================================================== */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    overflow: hidden;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 1.15rem 2.15rem;
+    white-space: nowrap;
+    transition:
+      transform 0.7s var(--ease-fluid),
+      box-shadow 0.7s var(--ease-fluid),
+      background-color 0.5s var(--ease-fluid),
+      border-color 0.5s var(--ease-fluid),
+      color 0.5s var(--ease-fluid);
+    will-change: transform;
+  }
+  .btn:active {
+    transform: scale(0.978);
+    transition-duration: 0.12s;
+  }
+
+  /* sheen sweep — trailing highlight */
+  .btn-sheen::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: -70%;
+    width: 45%;
+    transform: skewX(-18deg);
+    background: linear-gradient(
+      100deg,
+      transparent,
+      rgba(255, 255, 255, 0.45),
+      transparent
+    );
+    transition: left 1.05s var(--ease-fluid);
+    pointer-events: none;
+  }
+  .btn-sheen:hover::after,
+  .btn-sheen:focus-visible::after {
+    left: 135%;
+  }
+
+  .btn-copper {
+    background: linear-gradient(180deg, #cd874a 0%, #c07a3a 46%, #a9662f 100%);
+    color: var(--copper-btn-ink);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.55),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.25),
+      0 10px 26px -12px rgba(192, 122, 58, 0.85),
+      0 30px 60px -30px rgba(192, 122, 58, 0.55);
+  }
+  .btn-copper:hover {
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.65),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.25),
+      0 16px 40px -14px rgba(192, 122, 58, 0.95),
+      0 44px 90px -34px rgba(192, 122, 58, 0.7),
+      0 0 0 1px rgba(217, 160, 102, 0.45);
+    transform: translateY(-2px);
+  }
+  .btn-copper:active {
+    transform: translateY(0) scale(0.978);
+  }
+
+  .btn-glass {
+    color: var(--color-ivory);
+    background: linear-gradient(
+      157deg,
+      rgba(255, 255, 255, 0.13),
+      rgba(255, 255, 255, 0.05)
+    );
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(248, 245, 240, 0.16);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+      0 16px 40px -22px rgba(0, 0, 0, 0.8);
+  }
+  .btn-glass:hover {
+    transform: translateY(-2px);
+    border-color: rgba(192, 122, 58, 0.6);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+      0 0 0 1px rgba(192, 122, 58, 0.3),
+      0 22px 50px -22px rgba(192, 122, 58, 0.55),
+      0 30px 70px -30px rgba(0, 0, 0, 0.9);
+  }
+
+  .btn-ghost {
+    color: var(--dim-70);
+    border: 1px solid var(--border-soft);
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    color: var(--app-ink);
+    border-color: var(--dim-45);
+    background: var(--panel);
+  }
+
+  /* ==========================================================
+     TYPOGRAPHY — Emil Kowalski micro-typography
+     ========================================================== */
+  .eyebrow {
+    font-size: 0.66rem;
+    font-weight: 400;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+    font-feature-settings: "liga" 1, "kern" 1;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.06em;
+  }
+
+  .glow-title {
+    text-shadow:
+      0 0 70px var(--title-glow),
+      0 0 140px rgba(192, 122, 58, 0.22);
+  }
+
+  .rule {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--dim-20) 20%,
+      rgba(192, 122, 58, 0.5) 50%,
+      var(--dim-20) 80%,
+      transparent
+    );
+  }
+
+  /* fine underline link */
+  .link-line {
+    position: relative;
+    display: inline-block;
+  }
+  .link-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 1px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: right;
+    background: rgba(192, 122, 58, 0.9);
+    transition: transform 0.6s var(--ease-fluid);
+  }
+  .link-line:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* ==========================================================
+     FIELD — inputs in glass panels
+     ========================================================== */
+  .field {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--app-ink);
+    padding: 0.35rem 0;
+    outline: none;
+  }
+  .field::-webkit-calendar-picker-indicator {
+    filter: invert(1) opacity(0.5);
+    cursor: pointer;
+  }
+  select.field option {
+    background: var(--menu-bg);
+    color: var(--app-ink);
+  }
+
+  .hairline {
+    border-top: 1px solid var(--hairline);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ==========================================================
+   KEYFRAMES
+   ========================================================== */
+@keyframes float {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -11px, 0);
+  }
+}
+
+@keyframes caustic-drift {
+  0% {
+    transform: translate3d(-1.5%, -1%, 0) scale(1);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(2%, 1.5%, 0) scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes light-shaft {
+  0% {
+    opacity: 0.42;
+    transform: translate3d(-4%, -2%, 0) rotate(14deg) scaleX(1);
+  }
+  100% {
+    opacity: 0.72;
+    transform: translate3d(4%, 2%, 0) rotate(14deg) scaleX(1.08);
+  }
+}
+
+@keyframes glow-breathe {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 0.85;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes cue-drop {
+  0% {
+    transform: translateY(-40%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* scroll reveal — enters with motion blur, Emil-style */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0) scale(0.992);
+  filter: blur(10px);
+  transition:
+    opacity 1.15s var(--ease-fluid),
+    transform 1.15s var(--ease-fluid),
+    filter 1.15s var(--ease-fluid);
+  will-change: opacity, transform, filter;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+.shaft {
+  position: absolute;
+  inset: -25% -30%;
+  background: linear-gradient(
+    96deg,
+    transparent 32%,
+    rgba(255, 255, 255, 0.16) 46%,
+    rgba(255, 246, 232, 0.3) 50%,
+    rgba(255, 255, 255, 0.12) 56%,
+    transparent 70%
+  );
+  filter: blur(38px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: light-shaft 17s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .float,
+  .float-slow,
+  .shaft,
+  .glass::after {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
