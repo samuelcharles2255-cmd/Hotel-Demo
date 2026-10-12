@@ -20,7 +20,7 @@ import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR points to the HotelSys root directory
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 # Ensure apps in contents can be imported directly
@@ -31,14 +31,20 @@ sys.path.insert(0, str(BASE_DIR / "config"))
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-7^1ki#1!d90m9^gml9nn^sd=z-y8za)zw)8x0zxsaax_x)(1aw')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = os.environ.get("DEBUG", "True").lower() in ("true", "1")
 
 AUTH_USER_MODEL = "users.User"          # must be set BEFORE the first migration
 TIME_ZONE = "UTC"                       # set to the hotel's zone; "today" validation uses it
 MEDIA_URL, MEDIA_ROOT = "/media/", BASE_DIR / "media"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "testserver", "*"]
+allowed_hosts_env = os.environ.get("ALLOWED_HOSTS")
+if allowed_hosts_env:
+    ALLOWED_HOSTS = [h.strip() for h in allowed_hosts_env.split(",") if h.strip()]
+elif DEBUG:
+    ALLOWED_HOSTS = ["127.0.0.1", "localhost", "testserver", "*"]
+else:
+    ALLOWED_HOSTS = ["127.0.0.1", "localhost", "testserver"]
 
 
 # Application definition
@@ -95,7 +101,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if os.environ.get("DATABASE_URL"):
+use_local_db = os.environ.get("USE_LOCAL_DB", "False").lower() in ("true", "1")
+if os.environ.get("DATABASE_URL") and not use_local_db:
     DATABASES = {
         "default": dj_database_url.parse(
             os.environ["DATABASE_URL"],
@@ -171,8 +178,8 @@ REST_FRAMEWORK = {
  
 BOOKING_HOLD_MINUTES = 15
 CANCELLATION_CUTOFF_HOURS = 48          # placeholder policy
-SITE_URL = "https://yourhotel.example"  # used in confirmation emails
-PAYMENT_RETURN_URL = f"{SITE_URL}/payment/return"
+SITE_URL = os.environ.get("SITE_URL", "http://localhost:3010" if DEBUG else "https://yourhotel.example")
+PAYMENT_RETURN_URL = os.environ.get("PAYMENT_RETURN_URL", f"{SITE_URL}/payment/return")
 PAYMENT_PROVIDERS = {}                  # {"stripe": "payments.providers.stripe.StripeProvider", ...}
 if DEBUG:
     PAYMENT_PROVIDERS["dummy"] = "payments.providers.dummy.DummyProvider"
@@ -180,10 +187,10 @@ if DEBUG:
 if DEBUG:
     # Development: emails deep-link into the local Next.js frontend and are
     # written to HotelSys/sent_emails/ instead of attempting real SMTP.
-    SITE_URL = "http://localhost:3010"
-    PAYMENT_RETURN_URL = f"{SITE_URL}/payment/return"
-    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"  # Django 5.2 correct module for file-based email
+    EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.filebased.EmailBackend")
     EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+elif os.environ.get("EMAIL_BACKEND"):
+    EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND")
 
 
 # Internationalization

@@ -81,3 +81,29 @@ class AuthenticationApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data["email"], "testuser@example.com")
 
+    def test_refresh_invalid_token_clears_cookie(self):
+        refresh_url = reverse("token-refresh")
+        self.client.cookies[REFRESH_COOKIE] = "invalid_token_xyz"
+        res = self.client.post(refresh_url, {"refresh": "invalid_token_xyz"}, format="json")
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertIn(REFRESH_COOKIE, res.cookies)
+        self.assertEqual(res.cookies[REFRESH_COOKIE].value, "")
+
+    def test_refresh_rotates_cookie_without_leaking_in_body(self):
+        login_url = reverse("login")
+        login_res = self.client.post(
+            login_url,
+            {"email": "testuser@example.com", "password": "StrongPassword123!"},
+            format="json",
+        )
+        refresh_token = login_res.cookies[REFRESH_COOKIE].value
+
+        refresh_url = reverse("token-refresh")
+        self.client.cookies[REFRESH_COOKIE] = refresh_token
+        res = self.client.post(refresh_url, format="json")
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertIn("access", res.data)
+        self.assertNotIn("refresh", res.data)
+        self.assertIn(REFRESH_COOKIE, res.cookies)
+
+

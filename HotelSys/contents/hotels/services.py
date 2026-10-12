@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from bookings.models import Booking
 from .models import Room, RoomBlock
 
@@ -8,6 +10,14 @@ def available_rooms(hotel, check_in, check_out):
     that are active and free from overlapping room blocks and active bookings
     for the interval [check_in, check_out).
     """
+    now = timezone.now()
+    # Release stale unpaid holds so they don't block availability searches or DB constraints
+    Booking.objects.filter(
+        room__hotel=hotel,
+        status=Booking.Status.PENDING,
+        hold_expires_at__lt=now,
+    ).update(status=Booking.Status.EXPIRED)
+
     blocked_room_ids = RoomBlock.objects.filter(
         room__hotel=hotel,
         start_date__lt=check_out,

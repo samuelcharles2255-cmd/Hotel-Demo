@@ -5,6 +5,7 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APIClient
 
+from bookings.models import Booking
 from users.models import User
 from .models import Hotel, Room, RoomBlock, RoomType
 
@@ -93,4 +94,28 @@ class HotelApiTests(TestCase):
         res = self.client.get(reverse("room-list"))
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data["results"]), 2)
+
+    def test_availability_releases_expired_holds(self):
+        check_in = (timezone.now() + timedelta(days=2)).date()
+        check_out = (timezone.now() + timedelta(days=5)).date()
+
+        # Create an expired pending booking on room1
+        Booking.objects.create(
+            room=self.room1,
+            room_type=self.room_type,
+            check_in=check_in,
+            check_out=check_out,
+            status=Booking.Status.PENDING,
+            hold_expires_at=timezone.now() - timedelta(minutes=5),
+            price_per_night=150.00,
+            total_amount=450.00,
+            currency="USD",
+        )
+
+        url = reverse("hotel-availability", kwargs={"slug": self.hotel.slug})
+        res = self.client.get(url, {"check_in": str(check_in), "check_out": str(check_out), "adults": 2})
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data["results"]), 1)
+        # Both rooms must be available because the expired hold was released
+        self.assertEqual(res.data["results"][0]["rooms_left"], 2)
 

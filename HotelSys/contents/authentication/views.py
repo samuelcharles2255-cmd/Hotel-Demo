@@ -127,16 +127,15 @@ class RefreshView(PublicAPIView):
             User.objects.get(pk=token[api_settings.USER_ID_CLAIM], is_active=True)
             s = TokenRefreshSerializer(data={"refresh": raw})
             s.is_valid(raise_exception=True)
-        except (TokenError, User.DoesNotExist):
+        except (TokenError, User.DoesNotExist, InvalidToken, KeyError):
             response = Response({"detail": "Session expired. Please log in again."}, status=401)
             clear_refresh_cookie(response)
             return response
         data = {"access": s.validated_data["access"]}
+        response = Response(data)
         if "refresh" in s.validated_data:
-            data["refresh"] = s.validated_data["refresh"]
-            set_refresh_cookie(response := Response(data), s.validated_data["refresh"])
-            return response
-        return Response(data)
+            set_refresh_cookie(response, s.validated_data["refresh"])
+        return response
 
 
 class LogoutView(PublicAPIView):

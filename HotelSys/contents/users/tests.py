@@ -46,7 +46,7 @@ class UserApiTests(TestCase):
         self.assertIn("access", res.data)
         self.assertIn("refresh", res.data)
 
-        refresh_url = reverse("token-refresh")
+        refresh_url = reverse("user-token-refresh")
         refresh_res = self.client.post(refresh_url, {"refresh": res.data["refresh"]})
         self.assertEqual(refresh_res.status_code, status.HTTP_200_OK)
         self.assertIn("access", refresh_res.data)
@@ -70,7 +70,7 @@ class UserApiTests(TestCase):
         self.assertEqual(self.customer_user.phone, "+1122334455")
 
     def test_staff_customer_viewset(self):
-        customers_url = reverse("customer-list")
+        customers_url = reverse("user-customer-list")
 
         # Customer forbidden
         self.client.force_authenticate(user=self.customer_user)
