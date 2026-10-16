@@ -147,3 +147,4 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(seed_hotel_data, unseed_hotel_data),
     ]
+

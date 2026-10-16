@@ -32,3 +32,4 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(seed_admin_user, unseed_admin_user),
     ]
+

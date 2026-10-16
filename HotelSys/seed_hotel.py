@@ -15,7 +15,8 @@ sys.path.insert(0, str(BASE_DIR / "contents"))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 import django
-django.setup()
+if not django.apps.apps.ready:
+    django.setup()
 
 from hotels.models import Hotel, RoomType, Room, RoomImage
 
