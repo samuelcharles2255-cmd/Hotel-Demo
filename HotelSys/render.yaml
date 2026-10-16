@@ -18,3 +18,4 @@ services:
         value: "https://hoteldemoweb.vercel.app,http://localhost:3010"
       - key: DATABASE_URL
         sync: false
+
