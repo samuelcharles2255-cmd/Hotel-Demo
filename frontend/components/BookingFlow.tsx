@@ -133,10 +133,10 @@ export default function BookingFlow() {
   const [children, setChildren] = useState(0);
 
   // Guest details for real Django reservation
-  const [firstName, setFirstName] = useState("Samuel");
-  const [lastName, setLastName] = useState("Charles");
-  const [email, setEmail] = useState("samuel.charles2255@gmail.com");
-  const [phone, setPhone] = useState("+255 618 130 940");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
 
   const [rooms, setRooms] = useState<LocalRoom[]>(DEFAULT_ROOMS);
@@ -618,7 +618,7 @@ export default function BookingFlow() {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 className="mt-2 w-full rounded-xl border border-ivory/10 bg-ivory/[0.04] px-4 py-3 text-[0.95rem] text-ivory focus:border-copper/60 focus:outline-none"
-                placeholder="Samuel"
+                placeholder="First name"
                 required
               />
             </div>
@@ -632,7 +632,7 @@ export default function BookingFlow() {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 className="mt-2 w-full rounded-xl border border-ivory/10 bg-ivory/[0.04] px-4 py-3 text-[0.95rem] text-ivory focus:border-copper/60 focus:outline-none"
-                placeholder="Charles"
+                placeholder="Last name"
                 required
               />
             </div>
@@ -649,7 +649,7 @@ export default function BookingFlow() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="mt-2 w-full rounded-xl border border-ivory/10 bg-ivory/[0.04] px-4 py-3 text-[0.95rem] text-ivory focus:border-copper/60 focus:outline-none"
-                placeholder="samuel.charles2255@gmail.com"
+                placeholder="you@example.com"
                 required
               />
             </div>
@@ -663,7 +663,7 @@ export default function BookingFlow() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 className="mt-2 w-full rounded-xl border border-ivory/10 bg-ivory/[0.04] px-4 py-3 text-[0.95rem] text-ivory focus:border-copper/60 focus:outline-none"
-                placeholder="+255 618 130 940"
+                placeholder="+255 7XX XXX XXX"
               />
             </div>
           </div>

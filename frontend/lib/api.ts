@@ -129,6 +129,27 @@ export async function fetchAvailability(params: {
   }
 }
 
+/** Recursively extract a human-readable string from a DRF error body.
+ *  Handles: string, string[], { field: string[] }, { field: { 0: { subfield: [...] } } }. */
+function extractDrfError(value: unknown): string {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  if (Array.isArray(value)) return value.map(extractDrfError).filter(Boolean).join(" ");
+  if (typeof value === "object") {
+    return Object.entries(value as Record<string, unknown>)
+      .map(([k, v]) => {
+        const msg = extractDrfError(v);
+        if (!msg) return "";
+        if (/^\d+$/.test(k) || k === "non_field_errors" || k === "detail") return msg;
+        const label = k.replace(/_/g, " ");
+        return `${label}: ${msg}`;
+      })
+      .filter(Boolean)
+      .join(" | ");
+  }
+  return String(value);
+}
+
 /**
  * Create a new guest booking with room hold
  */
@@ -144,11 +165,12 @@ export async function createBooking(payload: CreateBookingPayload): Promise<Book
 
   if (!res.ok) {
     const errBody = await res.json().catch(() => ({}));
+    // DRF detail string wins; otherwise deep-extract all field errors
     const message =
-      errBody.detail ||
-      errBody.non_field_errors?.[0] ||
-      (typeof errBody === "object" ? Object.values(errBody).flat().join(" ") : "Booking creation failed.");
-    throw new Error(message || `Booking failed with status ${res.status}`);
+      (typeof errBody?.detail === "string" ? errBody.detail : null) ||
+      extractDrfError(errBody) ||
+      `Booking failed (${res.status}).`;
+    throw new Error(message);
   }
 
   return await res.json();

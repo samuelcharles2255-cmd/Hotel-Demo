@@ -11,14 +11,14 @@ export default function ConfirmationActions() {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const reference = searchParams?.get("ref") || "HB-AET40817";
-  const roomName = searchParams?.get("room") || "Executive King Suite";
-  const checkIn = searchParams?.get("check_in") || "14 Oct 2026";
-  const checkOut = searchParams?.get("check_out") || "17 Oct 2026";
-  const nights = searchParams?.get("nights") || "3";
-  const guests = searchParams?.get("guests") || "2 adults";
-  const total = searchParams?.get("total") || "780,000 TSH";
-  const guestName = searchParams?.get("guest") || "Samuel Charles";
+  const reference = searchParams?.get("ref") || "—";
+  const roomName = searchParams?.get("room") || "Luxury Suite";
+  const checkIn = searchParams?.get("check_in") || "—";
+  const checkOut = searchParams?.get("check_out") || "—";
+  const nights = searchParams?.get("nights") || "—";
+  const guests = searchParams?.get("guests") || "—";
+  const total = searchParams?.get("total") || "—";
+  const guestName = searchParams?.get("guest") || "Guest";
 
   const summary: [string, string][] = [
     ["Reservation Ref", reference],

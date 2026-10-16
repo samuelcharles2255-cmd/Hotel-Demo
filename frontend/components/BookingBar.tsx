@@ -7,9 +7,16 @@ import { useState } from "react";
  * Sticky bottom booking bar — dark liquid glass,
  * with a copper "Check Availability" that carries fluid press feedback.
  */
+/** Compute a default date string in YYYY-MM-DD, offset from today. */
+function defaultDate(offsetDays: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  return d.toISOString().slice(0, 10);
+}
+
 export default function BookingBar() {
-  const [checkIn, setCheckIn] = useState("2026-10-14");
-  const [checkOut, setCheckOut] = useState("2026-10-17");
+  const [checkIn, setCheckIn] = useState(() => defaultDate(2));
+  const [checkOut, setCheckOut] = useState(() => defaultDate(5));
   const [guests, setGuests] = useState("2");
 
   const nights = (() => {
