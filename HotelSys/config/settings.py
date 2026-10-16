@@ -108,7 +108,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-use_local_db = os.environ.get("USE_LOCAL_DB", "False").lower() in ("true", "1")
+is_cloud = bool(os.environ.get("RENDER") or os.environ.get("VERCEL") or os.environ.get("RAILWAY_ENVIRONMENT"))
+use_local_db = (not is_cloud) and (os.environ.get("USE_LOCAL_DB", "False").lower() in ("true", "1"))
 if os.environ.get("DATABASE_URL") and not use_local_db:
     DATABASES = {
         "default": dj_database_url.parse(
@@ -182,6 +183,7 @@ if csrf_env:
 else:
     CSRF_TRUSTED_ORIGINS = [
         "https://hoteldemoweb.vercel.app",
+        "https://hotelwebdemo.onrender.com",
         "http://localhost:3010",
         "http://127.0.0.1:3010",
     ]

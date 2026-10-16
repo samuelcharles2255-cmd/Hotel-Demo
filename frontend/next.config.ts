@@ -13,7 +13,9 @@ import type { NextConfig } from "next";
  * one registrable domain. Remember to add this origin to the Django
  * CORS_ALLOWED_ORIGINS in that setup.
  */
-const djangoOrigin = process.env.FRONTEND_API_PROXY ?? "http://127.0.0.1:8000";
+const isProd = process.env.NODE_ENV === "production";
+const defaultOrigin = isProd ? "https://hotelwebdemo.onrender.com" : "http://127.0.0.1:8000";
+const djangoOrigin = process.env.FRONTEND_API_PROXY ?? process.env.NEXT_PUBLIC_API_URL ?? defaultOrigin;
 const sameOriginApi = !process.env.NEXT_PUBLIC_API_URL;
 
 const nextConfig: NextConfig = {
@@ -25,6 +27,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "hotelwebdemo.onrender.com",
       },
     ],
   },

@@ -3,7 +3,7 @@ services:
     name: hotelsys-api
     runtime: python
     rootDir: HotelSys
-    buildCommand: pip install -r requirements.txt && python manage.py migrate
+    buildCommand: pip install -r requirements.txt && python manage.py migrate && python seed_hotel.py
     startCommand: gunicorn config.wsgi:application
     envVars:
       - key: DEBUG
