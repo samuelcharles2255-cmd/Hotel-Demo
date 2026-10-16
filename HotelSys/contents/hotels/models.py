@@ -19,6 +19,9 @@ class Hotel(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        app_label = "hotels"
+
     def __str__(self):
         return self.name
 
@@ -42,6 +45,7 @@ class Room(models.Model):
     notes = models.TextField(blank=True)
  
     class Meta:
+        app_label = "hotels"
         constraints = [
             models.UniqueConstraint(fields=["hotel", "number"], name="uniq_room_number_per_hotel"),
         ]
@@ -52,10 +56,6 @@ class Room(models.Model):
  
     def __str__(self):
         return f"Room {self.number}"
-
-
-
-    
 
 
 """ XXXXXXX ROOMTYPE  MODEL XXXXXXXXX """
@@ -74,6 +74,7 @@ class RoomType(models.Model):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        app_label = "hotels"
         constraints = [
             models.UniqueConstraint(fields=["hotel", "name"], name="uniq_roomtype_name_per_hotel"),
             models.CheckConstraint(check=models.Q(base_price__gte=0), name="roomtype_price_non_negative"),
@@ -100,10 +101,10 @@ class RoomBlock(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
  
     class Meta:
+        app_label = "hotels"
         constraints = [
             models.CheckConstraint(check=models.Q(end_date__gt=models.F("start_date")), name="block_end_after_start"),
         ]
-
 
 
 """ XXXXXXX ROOM IMAGE XXXXXX """
@@ -116,6 +117,7 @@ class RoomImage(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
  
     class Meta:
+        app_label = "hotels"
         ordering = ["sort_order", "id"]
         constraints = [
             models.UniqueConstraint(
@@ -123,7 +125,3 @@ class RoomImage(models.Model):
                 name="one_primary_image_per_roomtype",
             ),
         ]
-
-    
-
-    

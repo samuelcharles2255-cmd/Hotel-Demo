@@ -271,8 +271,13 @@ async function throwIfHttpError(res: Response, fallback: string) {
   let message = fallback;
   if (res.status !== 204) {
     try {
-      const data = (await res.json()) as FieldErrors & { detail?: string };
+      const data = (await res.json()) as FieldErrors & { detail?: string; error?: { message?: string } };
       if (typeof data.detail === "string") message = data.detail;
+      else if (data.error && typeof data.error.message === "string") {
+        if (res.status === 404 || data.error.message === "The page could not be found") {
+          message = "Backend API is unreachable (404). Ensure your Django backend is deployed and NEXT_PUBLIC_API_URL or FRONTEND_API_PROXY is configured.";
+        }
+      }
       errors = data;
     } catch {
       /* keep the fallback */
@@ -280,6 +285,8 @@ async function throwIfHttpError(res: Response, fallback: string) {
   }
   if (res.status === 401 && Object.keys(errors).length === 0)
     message = "Email or password is incorrect.";
+  if (res.status === 404 && message === fallback)
+    message = "Backend API is unreachable (404). Ensure your Django backend is deployed and NEXT_PUBLIC_API_URL or FRONTEND_API_PROXY is configured.";
   throw new ApiError(res.status, message, errors);
 }
 

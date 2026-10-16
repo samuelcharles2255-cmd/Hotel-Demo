@@ -42,6 +42,7 @@ class Payment(models.Model):
     paid_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
+        app_label = "payments"
         constraints = [
             models.CheckConstraint(check=models.Q(amount__gt=0), name="payment_amount_positive"),
             models.UniqueConstraint(

@@ -67,6 +67,7 @@ class Booking(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
+        app_label = "bookings"
         indexes = [
             models.Index(fields=["room", "check_in", "check_out"]),
             models.Index(fields=["status", "hold_expires_at"]),
@@ -108,6 +109,7 @@ class Guest(models.Model):
     is_primary = models.BooleanField(default=False)
  
     class Meta:
+        app_label = "bookings"
         constraints = [
             models.UniqueConstraint(
                 fields=["booking"], condition=models.Q(is_primary=True),

@@ -165,6 +165,11 @@ export async function createBooking(payload: CreateBookingPayload): Promise<Book
 
   if (!res.ok) {
     const errBody = await res.json().catch(() => ({}));
+    if (res.status === 404 || errBody?.error?.message === "The page could not be found") {
+      throw new Error(
+        "Backend API is unreachable (404 Not Found). If this site is deployed on Vercel, ensure your Django backend is deployed and NEXT_PUBLIC_API_URL or FRONTEND_API_PROXY is set in your Vercel project environment variables."
+      );
+    }
     // DRF detail string wins; otherwise deep-extract all field errors
     const message =
       (typeof errBody?.detail === "string" ? errBody.detail : null) ||

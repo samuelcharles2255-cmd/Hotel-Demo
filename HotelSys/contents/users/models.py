@@ -11,6 +11,7 @@ class User(AbstractUser):
     email_verified = models.BooleanField(default=False)
 
     class Meta:
+        app_label = "users"
         constraints = [models.UniqueConstraint(Lower("email"), name="uniq_user_email_ci")]
 
     def save(self, *args, **kwargs):

@@ -41,10 +41,17 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 allowed_hosts_env = os.environ.get("ALLOWED_HOSTS")
 if allowed_hosts_env:
     ALLOWED_HOSTS = [h.strip() for h in allowed_hosts_env.split(",") if h.strip()]
-elif DEBUG:
-    ALLOWED_HOSTS = ["127.0.0.1", "localhost", "testserver", "*"]
 else:
-    ALLOWED_HOSTS = ["127.0.0.1", "localhost", "testserver"]
+    ALLOWED_HOSTS = [
+        "127.0.0.1",
+        "localhost",
+        "testserver",
+        ".onrender.com",
+        ".railway.app",
+        ".vercel.app",
+        "hoteldemoweb.vercel.app",
+        "*",
+    ]
 
 
 # Application definition
@@ -157,15 +164,27 @@ SIMPLE_JWT = {
 
 
 
-# Frontend and API must be SAME-SITE (e.g. app.example.com + api.example.com) for the cookie to flow.
-CORS_ALLOWED_ORIGINS = [
-    "https://yourhotel.example",
-    # local Next.js frontend (AETHER) — proxy also runs, this keeps direct calls possible
-    "http://localhost:3010",
-    "https://hoteldemoweb.vercel.app",
-    "http://127.0.0.1:3010",
-]
+cors_env = os.environ.get("CORS_ALLOWED_ORIGINS")
+if cors_env:
+    CORS_ALLOWED_ORIGINS = [o.strip() for o in cors_env.split(",") if o.strip()]
+else:
+    CORS_ALLOWED_ORIGINS = [
+        "https://yourhotel.example",
+        "http://localhost:3010",
+        "https://hoteldemoweb.vercel.app",
+        "http://127.0.0.1:3010",
+    ]
 CORS_ALLOW_CREDENTIALS = True
+
+csrf_env = os.environ.get("CSRF_TRUSTED_ORIGINS")
+if csrf_env:
+    CSRF_TRUSTED_ORIGINS = [c.strip() for c in csrf_env.split(",") if c.strip()]
+else:
+    CSRF_TRUSTED_ORIGINS = [
+        "https://hoteldemoweb.vercel.app",
+        "http://localhost:3010",
+        "http://127.0.0.1:3010",
+    ]
 
 
 REST_FRAMEWORK = {
