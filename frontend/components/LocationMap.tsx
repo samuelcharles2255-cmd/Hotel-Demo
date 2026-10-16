@@ -3,9 +3,8 @@ import { SectionHead } from "@/components/ui";
 import { ArrowLink } from "@/components/ui";
 
 /**
- * Map & location — the user-supplied Google Maps embed, crowded house
- * style: glass frame, coordinates chip, arrival notes. Placeholders only;
- * the user swaps the map and copy for their own.
+ * Map & location — exact Google Maps embed in Mbeya, Tanzania (Hospital Hill Rd),
+ * styled in dark liquid-glass frame with coordinate telemetry and arrival details.
  */
 export default function LocationMap() {
   return (
@@ -18,24 +17,26 @@ export default function LocationMap() {
             eyebrow="Location"
             title={
               <>
-                At the centre
-                <br className="hidden sm:block" /> of things
+                Hospital Hill
+                <br className="hidden sm:block" /> Mbeya Highlands
               </>
             }
           />
 
           <p className="mt-8 max-w-md text-[1.02rem] font-light leading-relaxed text-ivory/55">
-            The house opens onto the harbour quarter — galleries, the morning
-            market and the water within a short walk. Arrive by air, rail or
-            boat; a host meets you at the courtyard door either way.
+            Nestled peacefully along Hospital Hill Road in the southern highlands of Mbeya,
+            AETHER offers calm retreat with sweeping mountain air and serene valley views.
+            Enjoy secure on-site parking, quiet surroundings, and dedicated airport transfers
+            connecting you to Songwe Airport.
           </p>
 
           <dl className="mt-10 max-w-md">
             {[
-              ["Address", "Plot 14, Harbour Quarter"],
-              ["City", "Mwanza, Tanzania"],
-              ["Coordinates", "8°52′44″ S — 33°56′42″ E"],
-              ["From the airport", "Twenty minutes by arrangement"],
+              ["Address", "Hospital Hill Rd (4C5R+R3H)"],
+              ["City", "Mbeya, Tanzania"],
+              ["Coordinates", "8°53′26″ S — 33°26′18″ E"],
+              ["From Songwe Airport (MBI)", "25 minutes by airport transfer"],
+              ["Property Amenities", "Free parking, High-Speed WiFi, Hot tub, Bar/Lounge"],
             ].map(([k, v]) => (
               <div
                 key={k}
@@ -59,12 +60,12 @@ export default function LocationMap() {
           <div className="glass trail float-slow relative overflow-hidden rounded-[2rem] p-2.5">
             <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d126144.23097352321!2d33.56505585927951!3d-8.878919003866494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2stz!4v1791360485266!5m2!1sen!2stz"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3941.8821814491803!2d33.43838671435692!3d-8.890544900000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19aa75551bca87b1%3A0x2b8326a6eac6fa57!2s4C5R%2BR3H%2C%20Hospital%20Hill%20Rd%2C%20Mbeya!5e0!3m2!1sen!2stz!4v1792060197828!5m2!1sen!2stz"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="strict-origin-when-cross-origin"
-                title="Map — AETHER, Mwanza, Tanzania"
+                title="Map — AETHER Luxury Hotel, Hospital Hill Rd, Mbeya, Tanzania"
                 className="absolute inset-0 h-full w-full"
               />
               {/* top refractive highlight */}
@@ -72,9 +73,9 @@ export default function LocationMap() {
             </div>
 
             <div className="flex items-center justify-between px-5 py-4">
-              <span className="eyebrow text-ivory/50">Find us</span>
+              <span className="eyebrow text-ivory/50">Mbeya, Tanzania</span>
               <span className="eyebrow num text-copper-light">
-                33.565° E — 8.879° S
+                33.438° E — 8.891° S
               </span>
             </div>
           </div>

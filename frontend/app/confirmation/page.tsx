@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import ConfirmationActions from "@/components/ConfirmationActions";
 import Reveal from "@/components/Reveal";
 import { images } from "@/lib/images";
 
 export const metadata: Metadata = {
-  title: "Your stay is confirmed — AETHER",
-  description: "Reservation AET-40817 — North Light Suite, 14–17 October 2026.",
+  title: "Your stay is confirmed — AETHER Luxury Hotel",
+  description: "Reservation confirmed — AETHER Luxury Hotel, Hospital Hill Rd, Mbeya, Tanzania.",
 };
 
 export default function ConfirmationPage() {
@@ -28,7 +29,7 @@ export default function ConfirmationPage() {
           <div className="flex items-center gap-4">
             <span className="h-px w-8 bg-copper/70" />
             <span className="eyebrow text-copper-light">
-              Reservation AET-40817
+              Hospital Hill Rd, Mbeya
             </span>
             <span className="h-px w-8 bg-copper/70" />
           </div>
@@ -43,8 +44,8 @@ export default function ConfirmationPage() {
 
         <Reveal delay={240}>
           <p className="mt-7 max-w-md text-center text-[1rem] font-light leading-relaxed text-ivory/55">
-            The North Light Suite is yours from the afternoon of 14 October.
-            Nothing else is required of you.
+            Your accommodation is reserved at AETHER Luxury Hotel in Mbeya.
+            A 15-minute live database hold is registered and a confirmation is dispatched.
           </p>
         </Reveal>
 
@@ -55,20 +56,20 @@ export default function ConfirmationPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={images.confirmRoom}
-                alt="North Light Suite"
+                alt="Executive Suite in Mbeya"
                 loading="eager"
                 className="h-full w-full object-cover"
               />
               <span className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
               <figcaption className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4">
                 <div>
-                  <p className="eyebrow text-copper-light">Suite 07</p>
+                  <p className="eyebrow text-copper-light">Executive Lodging</p>
                   <p className="display mt-1.5 text-2xl text-ivory">
-                    North Light Suite
+                    Executive King Suite
                   </p>
                 </div>
                 <p className="num text-[0.72rem] tracking-widest text-ivory/55">
-                  68 m²
+                  68 m² · Hot Tub
                 </p>
               </figcaption>
             </div>
@@ -79,7 +80,9 @@ export default function ConfirmationPage() {
 
         {/* -------- summary + actions -------- */}
         <div className="mt-10 w-full">
-          <ConfirmationActions />
+          <Suspense fallback={<div className="glass mx-auto max-w-xl p-8 text-center text-ivory/50">Loading reservation summary…</div>}>
+            <ConfirmationActions />
+          </Suspense>
         </div>
       </div>
     </main>

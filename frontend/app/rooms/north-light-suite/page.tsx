@@ -6,25 +6,27 @@ import { ArrowRight, SectionHead } from "@/components/ui";
 import { images } from "@/lib/images";
 
 export const metadata: Metadata = {
-  title: "North Light Suite — AETHER",
+  title: "Executive King Suite — AETHER Luxury Hotel",
   description:
-    "A sunlit concrete suite with a sculptural bed, an original work, and morning light from three aspects.",
+    "An opulent executive king suite in Mbeya featuring rich mahogany paneling, an ergonomic workstation, private kitchenette, and ensuite hot tub bath.",
 };
 
 const specs = [
   ["Size", "68 m² / 732 ft²"],
-  ["Bed", "Sculptural king, oak base"],
-  ["View", "Courtyard & western light"],
-  ["Bath", "Monolithic stone, deep tub"],
-  ["Art", "Untitled (Ochre), 2024 — M. Reis"],
-  ["Occupancy", "Two guests"],
+  ["Bed", "Opulent King Bed, mahogany wood headboard"],
+  ["View", "Mbeya mountain slopes & skyline"],
+  ["Bath", "Modern ensuite, hot tub & vanity"],
+  ["Workstation", "Ergonomic desk, smart TV, fiber WiFi"],
+  ["Kitchenette", "Induction stove, kettle, sink & fridge"],
+  ["Occupancy", "Two guests (+1 child)"],
+  ["Location", "Hospital Hill Road, Mbeya"],
 ];
 
 const gallery = [
-  { src: images.suiteGallery[0], label: "Living" },
-  { src: images.suiteGallery[1], label: "Bath" },
-  { src: images.suiteGallery[2], label: "Detail" },
-  { src: images.suiteGallery[3], label: "Corner" },
+  { src: images.suiteGallery[0], label: "Living Salon" },
+  { src: images.suiteGallery[1], label: "Bath & Hot Tub" },
+  { src: images.suiteGallery[2], label: "Workstation & Console" },
+  { src: images.suiteGallery[3], label: "In-room Kitchenette" },
 ];
 
 export default function NorthLightSuitePage() {
@@ -38,7 +40,7 @@ export default function NorthLightSuitePage() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={images.suiteHero}
-            alt="North Light Suite in soft morning light"
+            alt="Executive King Suite in warm highland light"
             className="h-full w-full object-cover object-center"
             loading="eager"
           />
@@ -52,15 +54,15 @@ export default function NorthLightSuitePage() {
             <div className="flex flex-wrap items-center gap-4">
               <span className="h-px w-10 bg-copper" />
               <span className="eyebrow text-copper-light">
-                Suite 07 — East House
+                Executive Suite 101 — Hospital Hill
               </span>
-              <span className="eyebrow text-ivory/35">From €620 / night</span>
+              <span className="eyebrow text-ivory/35">250,000 TSH / night</span>
             </div>
           </Reveal>
 
           <Reveal delay={130}>
             <h1 className="display mt-7 max-w-[14ch] text-[clamp(3rem,8.5vw,7rem)] text-ivory">
-              North Light
+              Executive King
               <br />
               <em className="font-normal italic text-copper-light">Suite</em>
             </h1>
@@ -68,25 +70,29 @@ export default function NorthLightSuitePage() {
 
           <Reveal delay={260}>
             <p className="mt-7 max-w-lg text-[1.02rem] font-light leading-relaxed text-ivory/60">
-              Morning arrives sideways here — across raw concrete, a
-              sculptural bed, and one large ochre painting that changes colour
-              every hour of the day.
+              Warm mahogany paneling, ambient cove lighting, an opulent king-size bed,
+              and a dedicated workstation overlooking the cool mountain breeze of Mbeya.
             </p>
           </Reveal>
 
           <Reveal delay={380}>
             <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
-              {["68 m²", "2 guests", "Courtyard view", "Stone bath"].map(
-                (t) => (
-                  <li
-                    key={t}
-                    className="eyebrow flex items-center gap-2.5 text-ivory/50"
-                  >
-                    <span className="h-1 w-1 rounded-full bg-copper" />
-                    {t}
-                  </li>
-                ),
-              )}
+              {[
+                "68 m²",
+                "King Bed",
+                "Mountain view",
+                "Hot tub bath",
+                "Kitchenette",
+                "Fiber WiFi",
+              ].map((t) => (
+                <li
+                  key={t}
+                  className="eyebrow flex items-center gap-2.5 text-ivory/50"
+                >
+                  <span className="h-1 w-1 rounded-full bg-copper" />
+                  {t}
+                </li>
+              ))}
             </ul>
           </Reveal>
         </div>
@@ -101,9 +107,9 @@ export default function NorthLightSuitePage() {
           <div>
             <Reveal>
               <p className="display max-w-2xl text-[clamp(1.5rem,2.6vw,2.05rem)] leading-[1.35] text-ivory/85">
-                The suite was left unfinished on purpose — formwork marks,
-                poured floors, a single copper pipe — so that the light, the
-                art and the silence would have something honest to sit against.
+                Engineered for executive comfort — rich timber finishes,
+                whisper-quiet acoustics, private kitchen amenities, and
+                panoramic light rising across the Southern Highlands.
               </p>
             </Reveal>
 
@@ -111,7 +117,7 @@ export default function NorthLightSuitePage() {
             <Reveal delay={120} className="mt-14">
               <div className="flex items-center justify-between">
                 <span className="eyebrow text-ivory/45">The suite in frames</span>
-                <span className="eyebrow num text-copper-light">04 / 12</span>
+                <span className="eyebrow num text-copper-light">04 Real Views</span>
               </div>
 
               <div className="no-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 sm:mx-0 sm:px-0">
@@ -144,7 +150,7 @@ export default function NorthLightSuitePage() {
 
             {/* specs */}
             <Reveal delay={100} className="mt-16">
-              <SectionHead eyebrow="The Space" title="Everything, considered" />
+              <SectionHead eyebrow="The Space" title="Crafted for quiet excellence" />
               <dl className="mt-9 grid gap-x-12 sm:grid-cols-2">
                 {specs.map(([k, v]) => (
                   <div
@@ -167,16 +173,15 @@ export default function NorthLightSuitePage() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={images.suiteDetail}
-                    alt="Morning light across the suite"
+                    alt="Warm lighting across the Executive King Bedroom"
                     loading="lazy"
                     className="h-full w-full object-cover"
                   />
                   <span className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 max-w-xs">
-                    <p className="eyebrow text-copper-light">07:40</p>
+                    <p className="eyebrow text-copper-light">Hospital Hill Rd, Mbeya</p>
                     <p className="mt-2 text-[0.95rem] font-light leading-relaxed text-ivory/75">
-                      The light crosses the bed in eleven minutes. We time
-                      breakfast to it.
+                      Peaceful highland mornings and restful evenings above the valley.
                     </p>
                   </div>
                 </div>
@@ -185,17 +190,17 @@ export default function NorthLightSuitePage() {
 
             {/* amenities */}
             <Reveal delay={120} className="mt-16">
-              <span className="eyebrow text-ivory/45">Included</span>
+              <span className="eyebrow text-ivory/45">Included with stay</span>
               <ul className="mt-6 grid gap-x-10 gap-y-4 sm:grid-cols-2">
                 {[
-                  "Hand-thrown ceramics",
-                  "Linocut prints by A. Vaz",
-                  "Marshall speaker, vinyl bar",
-                  "Stone hammam access",
-                  "Breakfast, unscheduled",
-                  "Airport transfer by arrangement",
-                  "Curatorial note, Thursdays",
-                  "Late checkout until 14:00",
+                  "Free High Speed Internet (WiFi)",
+                  "Hot tub & private luxury ensuite bath",
+                  "In-room kitchenette with induction cooktop",
+                  "Ergonomic work desk & smart flat-screen TV",
+                  "Free private parking on premises",
+                  "Songwe Airport transportation by arrangement",
+                  "Bar / lounge access & breakfast buffet",
+                  "Late checkout service upon request",
                 ].map((a) => (
                   <li
                     key={a}
@@ -211,11 +216,11 @@ export default function NorthLightSuitePage() {
             <Reveal delay={100} className="mt-16">
               <div className="flex flex-wrap gap-4">
                 <Link href="/booking" className="btn btn-glass btn-sheen">
-                  See all suites
+                  Check All Available Rooms
                   <ArrowRight />
                 </Link>
-                <Link href="/#art" className="btn btn-ghost">
-                  The collection
+                <Link href="/#amenities" className="btn btn-ghost">
+                  Property Amenities
                 </Link>
               </div>
             </Reveal>

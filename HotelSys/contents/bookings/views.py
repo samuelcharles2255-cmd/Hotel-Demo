@@ -107,3 +107,10 @@ class StaffBookingViewSet(viewsets.ReadOnlyModelViewSet):
         booking, refund_review = cancel_booking(
             self.get_object(), by=request.user, reason=s.validated_data["reason"], as_staff=True)
         return Response({"booking": self.get_serializer(booking).data, "refund_review": refund_review})
+
+    @action(detail=True, methods=["post"])
+    def complete(self, request, reference=None):
+        booking = self.get_object()
+        booking.status = Booking.Status.COMPLETED
+        booking.save(update_fields=["status", "updated_at"])
+        return Response(self.get_serializer(booking).data)

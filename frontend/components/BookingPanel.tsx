@@ -65,7 +65,7 @@ export default function BookingPanel() {
     });
   };
 
-  const rate = 620;
+  const rate = 250000;
   const total = nights * rate;
 
   return (
@@ -73,10 +73,10 @@ export default function BookingPanel() {
       <div className="flex items-end justify-between">
         <div>
           <p className="eyebrow text-ivory/40">From</p>
-          <p className="display mt-1.5 text-4xl text-ivory">
-            €{rate}
-            <span className="ml-2 text-base font-light tracking-wide text-ivory/45">
-              / night
+          <p className="display mt-1.5 text-3xl text-ivory">
+            {rate.toLocaleString()}
+            <span className="ml-2 text-sm font-light tracking-wide text-ivory/45">
+              TSH / night
             </span>
           </p>
         </div>
@@ -198,19 +198,19 @@ export default function BookingPanel() {
           <span className="num">€{total.toLocaleString("en-GB")}</span>
         </div>
         <div className="flex justify-between text-ivory/55">
-          <span>City tax</span>
-          <span className="num">€{(nights * guests * 4).toLocaleString("en-GB")}</span>
+          <span>Highland service fee</span>
+          <span className="num">{(nights * 10000).toLocaleString()} TSH</span>
         </div>
         <div className="flex items-baseline justify-between pt-2 text-ivory">
           <span className="eyebrow">Total</span>
           <span className="num display text-2xl text-copper-light">
-            €{(total + nights * guests * 4).toLocaleString("en-GB")}
+            {(total + nights * 10000).toLocaleString()} TSH
           </span>
         </div>
       </div>
 
       <Link
-        href="/booking"
+        href={`/booking?room=executive-king&arrival=${arrival}&departure=${departure}`}
         className="btn btn-copper btn-sheen mt-6 w-full"
       >
         Reserve this Room

@@ -60,6 +60,49 @@ function storeAccess(token: string | null) {
   }
 }
 
+export function getAccessToken(): string | null {
+  return accessToken;
+}
+
+/**
+ * Execute an authenticated request to backend API with automatic Bearer token
+ * and silent 1-time refresh on 401.
+ */
+export async function requestWithAuth(
+  url: string,
+  options: RequestInit = {},
+  retry = true
+): Promise<Response> {
+  const headers = new Headers(options.headers || {});
+  if (!headers.has("Content-Type") && !(options.body instanceof FormData)) {
+    headers.set("Content-Type", "application/json");
+  }
+  if (accessToken) {
+    headers.set("Authorization", `Bearer ${accessToken}`);
+  }
+  const res = await fetch(url, {
+    ...options,
+    headers,
+    credentials: "include",
+  });
+  if (res.status === 401 && retry) {
+    const refreshed = await refreshAccess();
+    if (refreshed && accessToken) {
+      const retryHeaders = new Headers(options.headers || {});
+      if (!retryHeaders.has("Content-Type") && !(options.body instanceof FormData)) {
+        retryHeaders.set("Content-Type", "application/json");
+      }
+      retryHeaders.set("Authorization", `Bearer ${accessToken}`);
+      return fetch(url, {
+        ...options,
+        headers: retryHeaders,
+        credentials: "include",
+      });
+    }
+  }
+  return res;
+}
+
 export class ApiError extends Error {
   status: number;
   errors: FieldErrors;
@@ -246,7 +289,7 @@ type SessionState = {
   guest: Guest | null;
   /** Answers definitively once the session has been examined. */
   ready: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<Guest>;
   signOut: () => Promise<void>;
 };
 
@@ -287,9 +330,10 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const signIn = useCallback(async (email: string, password: string) => {
+  const signIn = useCallback(async (email: string, password: string): Promise<Guest> => {
     const user = await auth.login(email, password);
     setGuest(user);
+    return user;
   }, []);
 
   const signOut = useCallback(async () => {

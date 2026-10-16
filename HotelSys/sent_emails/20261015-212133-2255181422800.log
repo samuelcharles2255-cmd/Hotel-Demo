@@ -1,0 +1,16 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Verify your email
+From: webmaster@localhost
+To: muhamed@buza.co.tz
+Date: Thu, 15 Oct 2026 18:21:33 -0000
+Message-ID: <179208849328.19400.15751824124135033875@Lenovo_Ryzen3>
+
+Hi wazir,
+
+Confirm your email to finish setting up your account:
+http://localhost:3010/verify-email?token=eyJ1aWQiOjUsImVtYWlsIjoibXVoYW1lZEBidXphLmNvLnR6In0:1xHQ57:GsBblAXnF5ut0LXiuDGPXeACQvsIe0qfwX5fImqG8ZM
+
+This link expires in 48 hours. If you didn't sign up, ignore this email.
+-------------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import BookingBar from "@/components/BookingBar";
 import LocationMap from "@/components/LocationMap";
+import PropertyHighlights from "@/components/PropertyHighlights";
 import Reveal from "@/components/Reveal";
 import { ArrowRight, ArrowLink, SectionHead } from "@/components/ui";
 import { images } from "@/lib/images";
@@ -8,30 +9,30 @@ import { images } from "@/lib/images";
 const cards = [
   {
     n: "01",
-    label: "Rooms",
-    title: "Private Retreats",
-    body: "Twenty-four suites shaped around one thing: the way morning light lands on raw concrete.",
+    label: "Suites",
+    title: "Executive Retreats",
+    body: "Spacious suites with opulent king beds, rich mahogany paneling, private kitchenettes, and modern hot tub baths.",
     href: "/rooms/north-light-suite",
     img: images.cardRooms,
     id: undefined,
   },
   {
     n: "02",
-    label: "Experience",
-    title: "Moments of Stillness",
-    body: "A hammam cut into stone, a listening room, a courtyard where nothing is scheduled.",
+    label: "Living",
+    title: "Executive Salons",
+    body: "Expansive living suites with leather lounges, dedicated work consoles, ambient lighting, and serene highland views.",
     href: "/#experience",
     img: images.cardExperience,
     id: "experience",
   },
   {
     n: "03",
-    label: "Art",
-    title: "A Living Collection",
-    body: "Forty-one works on permanent loan — paintings, sculpture and sound, placed where you live.",
-    href: "/#art",
+    label: "Hospitality",
+    title: "Amenities & Spaces",
+    body: "Ranked #10 Specialty lodging in Mbeya with free parking, high-speed WiFi, conference hall, and airport shuttle.",
+    href: "/#amenities",
     img: images.cardArt,
-    id: "art",
+    id: "amenities",
   },
 ];
 
@@ -60,31 +61,30 @@ export default function Home() {
             <div className="flex items-center gap-4">
               <span className="h-px w-10 bg-copper" />
               <span className="eyebrow text-copper-light">
-                Contemporary Art Hotel — Mwanza
+                Specialty Luxury Lodging — Hospital Hill, Mbeya
               </span>
             </div>
           </Reveal>
 
           <Reveal delay={120}>
             <h1 className="display mt-8 max-w-[16ch] text-[clamp(3.2rem,9vw,7.5rem)] text-ivory">
-              Light is the
+              Highland light,
               <br />
-              first <em className="font-normal italic text-copper-light">artist</em>
+              quiet <em className="font-normal italic text-copper-light">luxury</em>
             </h1>
           </Reveal>
 
           <Reveal delay={240}>
             <p className="mt-8 max-w-md text-[1.02rem] font-light leading-relaxed text-ivory/60">
-              AETHER is a house of concrete, oxidised copper and forty-one
-              living works — built for people who travel to look, and stay to
-              be still.
+              AETHER is an oasis of refined hospitality in Mbeya, Tanzania — offering
+              executive suites, rich mahogany woodwork, mountain serenity, and attentive personal service.
             </p>
           </Reveal>
 
           <Reveal delay={360}>
             <div className="mt-11 flex flex-wrap items-center gap-5">
               <Link href="/booking" className="btn btn-copper btn-sheen trail">
-                Enter the Collection
+                Check Availability
                 <ArrowRight />
               </Link>
 
@@ -92,7 +92,7 @@ export default function Home() {
                 href="/rooms/north-light-suite"
                 className="eyebrow group inline-flex items-center gap-3 text-ivory/60 transition-colors duration-500 hover:text-ivory"
               >
-                View the North Light Suite
+                View the Executive King Suite
                 <span className="h-px w-8 bg-ivory/30 transition-all duration-700 ease-fluid group-hover:w-14 group-hover:bg-copper" />
               </Link>
             </div>
@@ -107,7 +107,7 @@ export default function Home() {
               />
             </span>
             <span className="eyebrow num hidden sm:inline">
-              8.88° S — 33.57° E
+              8.89° S — 33.44° E
             </span>
           </div>
         </div>
@@ -309,27 +309,25 @@ export default function Home() {
         <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-2 lg:items-center">
           <Reveal className="order-2 lg:order-1">
             <SectionHead
-              eyebrow="Dining"
+              eyebrow="Dining & Lounge"
               title={
                 <>
-                  Twelve seats,
-                  <br className="hidden sm:block" /> one menu a night
+                  Highland flavours,
+                  <br className="hidden sm:block" /> warm hospitality
                 </>
               }
             />
             <p className="mt-8 max-w-md text-[1.02rem] font-light leading-relaxed text-ivory/55">
-              COBRE opens at eight and closes when the last plate leaves.
-              A five-course menu built that morning from the market at
-              Capri Point,
-              poured with low-intervention wines from the slopes of
-              Nyanza.
+              Our restaurant and lounge serves fresh cuisine inspired by the fertile
+              slopes of Mbeya and the Southern Highlands. From vibrant breakfast buffets
+              to elegant private dinners and relaxed evening drinks in the bar lounge.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link href="/booking" className="btn btn-copper btn-sheen">
                 Reserve a table
               </Link>
               <Link href="/rooms/north-light-suite" className="btn btn-ghost">
-                Stay the night
+                View the suites
               </Link>
             </div>
           </Reveal>
@@ -340,20 +338,25 @@ export default function Home() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={images.dining}
-                  alt="COBRE — the hotel restaurant"
+                  alt="Restaurant & Dining Area — AETHER Mbeya"
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-[1600ms] ease-fluid hover:scale-105"
                 />
                 <span className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent" />
               </div>
               <div className="flex items-center justify-between px-5 py-4">
-                <span className="eyebrow text-ivory/50">COBRE</span>
-                <span className="eyebrow num text-copper-light">20:00</span>
+                <span className="eyebrow text-ivory/50">Restaurant & Lounge</span>
+                <span className="eyebrow num text-copper-light">07:00 — 23:00</span>
               </div>
             </div>
           </Reveal>
         </div>
       </section>
+
+      {/* ============================================================
+          PROPERTY HIGHLIGHTS & RATINGS — #10 Specialty Lodging in Mbeya
+      ============================================================ */}
+      <PropertyHighlights />
 
       {/* ============================================================
           LOCATION — map & arrival

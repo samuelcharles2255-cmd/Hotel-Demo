@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import BookingFlow from "@/components/BookingFlow";
 import Reveal from "@/components/Reveal";
 import { images } from "@/lib/images";
@@ -44,9 +45,9 @@ export default function BookingPage() {
 
             <div className="mt-8 hidden gap-x-10 gap-y-3 lg:flex lg:flex-wrap">
               {[
-                ["38.71° N", "Lisboa"],
-                ["24", "Suites"],
-                ["24/7", "Concierge"],
+                ["8.89° S", "Mbeya"],
+                ["#10", "Specialty Lodging"],
+                ["5.0 ★", "Room Rating"],
               ].map(([v, l]) => (
                 <div key={l}>
                   <p className="num display text-2xl text-ivory">{v}</p>
@@ -69,7 +70,9 @@ export default function BookingPage() {
           </Reveal>
 
           <div className="mt-8">
-            <BookingFlow />
+            <Suspense fallback={<div className="glass p-8 text-center text-ivory/50">Loading reservation portal…</div>}>
+              <BookingFlow />
+            </Suspense>
           </div>
         </div>
       </section>

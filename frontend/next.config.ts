@@ -32,7 +32,10 @@ const nextConfig: NextConfig = {
     if (!sameOriginApi) return [];
     // :path* normalizes segments (dropping the trailing slash), so the
     // literal "/" after it restores DRF's slash-suffixed endpoints.
-    return [{ source: "/api/:path*", destination: `${djangoOrigin}/api/:path*/` }];
+    return [
+      { source: "/api/:path*", destination: `${djangoOrigin}/api/:path*/` },
+      { source: "/media/:path*", destination: `${djangoOrigin}/media/:path*` },
+    ];
   },
 };
 

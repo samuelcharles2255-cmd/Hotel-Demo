@@ -157,6 +157,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://yourhotel.example",
     # local Next.js frontend (AETHER) — proxy also runs, this keeps direct calls possible
     "http://localhost:3010",
+    "https://hoteldemoweb.vercel.app",
     "http://127.0.0.1:3010",
 ]
 CORS_ALLOW_CREDENTIALS = True

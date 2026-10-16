@@ -42,8 +42,12 @@ export default function AuthForm({ mode }: { mode: Mode }) {
         await fetchSessions(authInput());
         router.push("/verify-email/pending");
       } else {
-        await signIn(email.trim().toLowerCase(), password);
-        router.push("/");
+        const guest = await signIn(email.trim().toLowerCase(), password);
+        if (guest && (guest.role === "admin" || guest.role === "staff")) {
+          router.push("/admin");
+        } else {
+          router.push("/");
+        }
       }
     } catch (err) {
       if (err instanceof ApiError) {

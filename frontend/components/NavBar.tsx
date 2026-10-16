@@ -7,15 +7,16 @@ import SessionTrail from "./SessionTrail";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
-  { label: "Rooms", href: "/rooms/north-light-suite" },
+  { label: "Suites", href: "/rooms/north-light-suite" },
   { label: "Experience", href: "/#experience" },
-  { label: "Art", href: "/#art" },
+  { label: "Amenities", href: "/#amenities" },
   { label: "Dining", href: "/#dining" },
-  { label: "Location", href: "/#location" } 
+  { label: "Location", href: "/#location" },
 ];
 
 export default function NavBar() {
   const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) return null;
   const [scrolled, setScrolled] = useState(false);
   // The sheet records which route it was opened on, so any navigation
   // closes it — no effect, no cascading render.

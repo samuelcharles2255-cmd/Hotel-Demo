@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) return null;
   return (
     <footer className="relative overflow-hidden border-t border-ivory/10 bg-charcoal-deep px-6 pb-10 pt-20 sm:px-10">
       <div className="mx-auto max-w-6xl">
@@ -69,11 +74,11 @@ export default function Footer() {
             <div>
               <p className="eyebrow text-copper-light">Contact</p>
               <ul className="mt-5 space-y-3 text-[0.95rem] font-light text-ivory/55">
-                <li>Plot 14, Harbour Quarter</li>
-                <li>Mwanza, Tanzania</li>
+                <li>Hospital Hill Rd (4C5R+R3H)</li>
+                <li>Mbeya, Tanzania</li>
                 <li>
-                  <a className="link-line hover:text-ivory" href="tel:+255282500000">
-                    +255 28 250 0000
+                  <a className="link-line hover:text-ivory" href="tel:+255618130940">
+                    +255 618 130 940
                   </a>
                 </li>
               </ul>
@@ -84,8 +89,8 @@ export default function Footer() {
         <div className="rule mt-16" />
 
         <div className="mt-6 flex flex-col items-start justify-between gap-3 text-[0.72rem] tracking-[0.18em] text-ivory/30 uppercase sm:flex-row sm:items-center">
-          <span>© 2026 AETHER Collection</span>
-          <span>Quiet luxury · Mwanza</span>
+          <span>© 2026 AETHER Luxury Hotel</span>
+          <span>Quiet luxury · Hospital Hill, Mbeya</span>
         </div>
       </div>
     </footer>
